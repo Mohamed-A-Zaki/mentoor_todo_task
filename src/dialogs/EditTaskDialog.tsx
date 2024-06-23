@@ -5,9 +5,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 export default function EditTaskDialog() {
   const opened = open_edit_task_atom.useOpened();
 
-
-  console.log("Edit Task Dialog Rendered");
-
   return (
     <Dialog open={opened} onOpenChange={open_edit_task_atom.toggle}>
       <DialogContent>

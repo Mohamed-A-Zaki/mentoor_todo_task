@@ -3,6 +3,8 @@ import { open_edit_task_atom } from "@/atoms/open_edit_task_atom";
 import { tasks_atom } from "@/atoms/tasks_atom";
 import toast from "react-hot-toast";
 
+type CheckedState = boolean | string;
+
 export default function useTaskItem(id: number) {
   const { data } = tasks_atom.useValue();
 
@@ -37,8 +39,30 @@ export default function useTaskItem(id: number) {
     open_edit_task_atom.open();
   };
 
+  const handleCompleteTask = (checked: CheckedState, id: number) => {
+    /***
+     * update the task in the tasks list
+     */
+    const updated_data = [...data].map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          completed: checked,
+        };
+      } else {
+        return task;
+      }
+    });
+
+    /***
+     * update the tasks list
+     */
+    tasks_atom.change("data", updated_data);
+  };
+
   return {
     handleDeleteTask,
     handleEditTask,
+    handleCompleteTask,
   };
 }

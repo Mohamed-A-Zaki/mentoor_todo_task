@@ -1,10 +1,11 @@
-import { open_create_task_atom } from './../atoms/open_create_task_atom';
+import { open_create_task_atom } from "./../atoms/open_create_task_atom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import toast from "react-hot-toast";
 import { tasks_atom } from "@/atoms/tasks_atom";
+import { ITask } from "@/types/tasks.types";
 
 export default function useCreateTaskForm() {
   const { data } = tasks_atom.useValue();
@@ -29,10 +30,11 @@ export default function useCreateTaskForm() {
     /**
      * add the task to the tasks list
      */
-    const object_to_add = {
+    const object_to_add: ITask = {
       id: Date.now(),
       ...values,
       createdAt: new Date().toString(),
+      completed: false,
     };
 
     /***
