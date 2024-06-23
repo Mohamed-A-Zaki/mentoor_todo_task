@@ -11,11 +11,11 @@ export default function useCreateTaskForm() {
   const { data } = tasks_atom.useValue();
 
   const FormSchema = z.object({
-    name: z.string().min(3, "name must be at least 3 characters."),
+    name: z.string().min(3, "name must be at least 3 characters.").trim(),
     description: z
       .string()
       .min(10, "description must be at least 10 characters.")
-      .max(160, "description must not be longer than 160 characters."),
+      .max(160, "description must not be longer than 160 characters.").trim(),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
