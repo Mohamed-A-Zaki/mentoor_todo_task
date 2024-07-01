@@ -1,6 +1,7 @@
 import { tasks_atom } from "@/atoms/tasks_atom";
 import TasksList from "./TasksList";
 import useCacheTasks from "@/hooks/useCacheTasks";
+import { useTranslation } from "react-i18next";
 
 export default function Tasks() {
   const { data } = tasks_atom.useValue();
@@ -15,12 +16,17 @@ export default function Tasks() {
    */
   useCacheTasks();
 
+  /***
+   * i18n for translation
+   */
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="container">
         <div>
           <h2 className="font-bold text-3xl mt-10">
-            Tasks ( {completed_tasks} completed / {data.length} )
+            {t("Tasks")} ( {completed_tasks} {t("completed")} / {data.length} )
           </h2>
           <TasksList />
         </div>

@@ -7,9 +7,12 @@ import toast from "react-hot-toast";
 import { id_task_to_edit } from "@/atoms/id_task_to_edit";
 import { tasks_atom } from "@/atoms/tasks_atom";
 import { open_edit_task_atom } from "@/atoms/open_edit_task_atom";
+import { useTranslation } from "react-i18next";
 
 export default function useEditTaskForm() {
   const { data } = tasks_atom.useValue();
+
+  const { t } = useTranslation();
 
   const task_id = id_task_to_edit.useValue();
 
@@ -18,7 +21,8 @@ export default function useEditTaskForm() {
     description: z
       .string()
       .min(10, "description must be at least 10 characters.")
-      .max(160, "description must not be longer than 160 characters.").trim(),
+      .max(160, "description must not be longer than 160 characters.")
+      .trim(),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -57,11 +61,12 @@ export default function useEditTaskForm() {
     /***
      * show success toast
      */
-    toast.success("task updated successfully");
+    toast.success(t("task updated successfully"));
   }
 
   return {
     form,
     onSubmit,
+    t,
   };
 }

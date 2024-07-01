@@ -2,11 +2,14 @@ import { id_task_to_edit } from "@/atoms/id_task_to_edit";
 import { open_edit_task_atom } from "@/atoms/open_edit_task_atom";
 import { tasks_atom } from "@/atoms/tasks_atom";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 type CheckedState = boolean | string;
 
 export default function useTaskItem(id: number) {
   const { data } = tasks_atom.useValue();
+
+  const { t } = useTranslation();
 
   const handleDeleteTask = () => {
     /**
@@ -64,5 +67,6 @@ export default function useTaskItem(id: number) {
     handleDeleteTask,
     handleEditTask,
     handleCompleteTask,
+    t,
   };
 }

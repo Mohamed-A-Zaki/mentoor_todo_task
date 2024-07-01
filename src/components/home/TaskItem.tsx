@@ -5,7 +5,7 @@ import { ITask } from "@/types/tasks.types";
 import { Checkbox } from "../ui/checkbox";
 
 export default function TaskItem({ id, name, description, completed }: ITask) {
-  const { handleDeleteTask, handleEditTask, handleCompleteTask } =
+  const { handleDeleteTask, handleEditTask, handleCompleteTask, t } =
     useTaskItem(id);
 
   return (
@@ -30,7 +30,7 @@ export default function TaskItem({ id, name, description, completed }: ITask) {
           {description}
         </p>
 
-        <div className="flex items-center space-x-2 mt-5">
+        <div className="flex items-center gap-2 mt-5">
           <Checkbox
             id={id.toString()}
             checked={completed}
@@ -40,7 +40,7 @@ export default function TaskItem({ id, name, description, completed }: ITask) {
             htmlFor={id.toString()}
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Completed
+            {t("completed")}
           </label>
         </div>
       </CardContent>

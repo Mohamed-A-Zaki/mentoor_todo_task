@@ -6,16 +6,20 @@ import { z } from "zod";
 import toast from "react-hot-toast";
 import { tasks_atom } from "@/atoms/tasks_atom";
 import { ITask } from "@/types/tasks.types";
+import { useTranslation } from "react-i18next";
 
 export default function useCreateTaskForm() {
   const { data } = tasks_atom.useValue();
+
+  const { t } = useTranslation();
 
   const FormSchema = z.object({
     name: z.string().min(3, "name must be at least 3 characters.").trim(),
     description: z
       .string()
       .min(10, "description must be at least 10 characters.")
-      .max(160, "description must not be longer than 160 characters.").trim(),
+      .max(160, "description must not be longer than 160 characters.")
+      .trim(),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -50,11 +54,12 @@ export default function useCreateTaskForm() {
     /***
      * show success toast
      */
-    toast.success("task created successfully");
+    toast.success(t("task created successfully"));
   }
 
   return {
     form,
     onSubmit,
+    t,
   };
 }
